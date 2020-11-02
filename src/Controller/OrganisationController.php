@@ -19,7 +19,7 @@ class OrganisationController extends AbstractController
 
     public function index(OrganisationManager $organisationManager)
     {
-        $organisations = $organisationManager->getInfos();
+        $organisations = $organisationManager->getOrganizations();
         if ($organisations == null)
             return $this->render('notFound.twig');
         return $this->render('organisations.twig', [
@@ -28,27 +28,18 @@ class OrganisationController extends AbstractController
     }
 
     /**
-     * @Route("/organization/update", name="organization_update")
-     */
-
-    public function updateInfo(Request $request, OrganisationManager $organisationManager)
-    {
-        if ($request->isMethod('POST')){
-            dump($request->request);
-            return $this->render('notFound.twig');
-        }
-    }
-
-    /**
      * @Route("/organization/{slug}", name="organization_info")
      */
 
-    public function organizationInfo(string $slug, OrganisationManager $organisationManager)
+    public function organizationInfo(string $slug, Request $request, OrganisationManager $organisationManager)
     {
-        $fileOrganisation = $organisationManager->getInfos($slug);
+        $fileOrganisation = $organisationManager->getOrganizations($slug);
         if ($fileOrganisation == null)
             return $this->render('notFound.twig');
 
+        if ($request->isMethod('POST')){
+            $organisationManager->updateOrganizations($request->request->all());
+        }
         return $this->render('organization_info.twig', [
             'organization_name' => $slug,
             'organization' => $fileOrganisation

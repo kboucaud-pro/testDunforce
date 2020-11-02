@@ -3,6 +3,7 @@ $(document).ready(function () {
     //Add all the users and settings encoded into JSON into a hidden field
     $('#organizationForm').submit(function () {
         var users = [];
+        var roleList;
         $('.organizationUser').each((id, user) => {
             var userTab = {
                 "name": null,
@@ -10,8 +11,13 @@ $(document).ready(function () {
                 "password": null
             };
             for (var i = 0; i < user.childNodes.length; i++) {
-                if (user.childNodes[i].className == "roleName")
-                    userTab.role.push(user.childNodes[i].innerText);
+                if (user.childNodes[i].className == "roleList"){
+                    roleList = user.childNodes[i];
+                    for (var j = 0; j < roleList.childNodes.length; j++){
+                        if (roleList.childNodes[j].className == "roleName")
+                            userTab.role.push(roleList.childNodes[j].firstChild.textContent)
+                    }
+                }
                 else if (user.childNodes[i].className == "userName")
                     userTab.name = user.childNodes[i].value;
                 else if (user.childNodes[i].className == "userPassword")
@@ -20,7 +26,7 @@ $(document).ready(function () {
             users.push(userTab);
         })
         $("<input />").attr("type", "hidden").attr("name", "users").attr("value", JSON.stringify(users)).appendTo("#organizationForm");
-        return false;
+        return true;
     });
 
 
