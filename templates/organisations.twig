@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link href="{{ asset('css/organisations.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    Here the list of registered applications:<br>
+    {% for organisation in organisations %}
+    <span class="org_name"><a href="/organization/{{ organisation.name }}">{{ organisation.name }}</a></span>
+    <div class="sub_infos">
+        <div class="users_list">
+            {% for user in organisation.users %}
+            {{ user.name }} , Roles :
+            {% for perms in user.role %}
+                {{ perms }}
+            {% endfor %}<br>
+            {% endfor %}
+        </div>
+        {{ organisation.description }}
+    </div><br>
+    {% endfor %}
+    {% block javascripts %}{% endblock %}
+</body>
+
+</html>

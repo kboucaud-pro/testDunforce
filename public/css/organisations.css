@@ -1,0 +1,67 @@
+.users_list {
+    float: right;
+    margin-left: 20px;
+}
+
+.sub_infos {
+    display: none;
+    position: absolute;
+    background-color: ghostwhite;
+    padding: 5px;
+    border: gray solid 1px;
+    border-radius: 15px;
+    margin-left: 20px;
+    max-width: 400px;
+    float: left;
+}
+
+#organizationDescription{
+    margin-bottom: 10px;
+}
+
+.org_name:hover + .sub_infos {
+    display: inline-block;
+}
+
+textarea {
+    font-family: "Times New Roman", Times, serif;
+}
+
+.organizationUser + .organizationUser {
+    margin-top: 10px;
+}
+
+.roleList{
+    display: inline-block;
+}
+
+.deleteRole {
+    border-radius: 20%;
+    background-color: darkgray;
+}
+
+.addRoleInput {
+    width: 70px;
+}
+
+.addRoleButton {
+    border-radius: 20px;
+}
+
+a {
+    color: darkgreen;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:focus {
+    border-bottom: 1px solid;
+}
+
+a:active,
+a:focus {
+    outline: 0;
+    border-bottom: 1px solid green;
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link href="{{ asset('css/organisations.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    <form action="/organization/update" id="organizationForm" method="POST">
+        <label for="organizationName">Organization Name : </label><input type="text" name="organizationName"
+            id="organizationName" value="{{ organization.name }}" /><br><br>
+        <label for="organizationDescription">Organization Description : </label><br>
+        <textarea name="organizationDescription" id="organizationDescription" cols="50"
+            rows="10">{{ organization.description }}</textarea><br>
+        <div id="organizationUserList">
+            {% for user in organization.users %}
+            <div class="organizationUser">
+                Name: <input type="text" value="{{ user.name }}" class="userName" />
+                Password: <input type="text" value="{{ user.password }}" class="userPassword" />
+                Roles: 
+                <div class="roleList">
+                    {% for role in user.role %}
+
+                    <span class="roleName">{{ role }}<button type="button" class="deleteRole">X</button></span>
+                    {% endfor %}
+                </div>
+                <input type="text" class="addRoleInput" /><button type="button" class="addRoleButton">Add role</button>
+                <button type="button" class="deleteUserButton">Delete User</button>
+            </div>
+            {% endfor %}
+        </div>
+        <div style="margin-top: 20px;">
+            <input type="text" id="addUserInput" /><button id="addUserButton">Add User</button><br>
+        </div>
+        <input type="submit" value="Save informations" />
+    </form>
+    <script src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
+    <script src="{{ asset('js/organization.js') }}"></script>
+</body>
+
+</html>
