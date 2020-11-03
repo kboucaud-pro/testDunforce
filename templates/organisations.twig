@@ -21,6 +21,7 @@
     {% endfor %}
 
     Here the list of registered applications:<br>
+    {% if organisations is defined %}
     {% for organisation in organisations %}
     <span class="org_name"><a href="/organization/{{ organisation.name }}">{{ organisation.name }}</a></span>
     <div class="sub_infos">
@@ -35,6 +36,9 @@
         {{ organisation.description }}
     </div><br>
     {% endfor %}
+    {% endif %}
+    <br>
+    <a href="/createOrganization"><button type="button">Create Organization</button></a>
     {% block javascripts %}{% endblock %}
 </body>
 

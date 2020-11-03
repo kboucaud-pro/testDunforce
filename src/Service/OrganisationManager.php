@@ -13,7 +13,7 @@ class OrganisationManager
         // if no params, get all the organizations
         // if params, get only the params info (if organizations exists)
         // $name : name of the organization
-        $file = Yaml::parseFile('files/tmp.yaml')["organizations"];
+        $file = Yaml::parseFile('files/organizations.yaml')["organizations"];
         if ($name != null) {
             foreach ($file as $organization) {
                 if ($organization["name"] == $name)
@@ -44,13 +44,13 @@ class OrganisationManager
             if ($file[$i]["name"] == $proceededInformations["name"]) {
                 $file[$i] = $proceededInformations;
                 $yaml = Yaml::dump(["organizations" => $file], 2); //Trying to get the expanded array version but doesnt seems to work (function doesnt seems to work)
-                file_put_contents('files/tmp.yaml', $yaml);
+                file_put_contents('files/organizations.yaml', $yaml);
                 return 'UPDATED';
             }
         }
         $file[] = $proceededInformations;
         $yaml = Yaml::dump(["organizations" => $file], 2);
-        file_put_contents('files/tmp.yaml', $yaml);
+        file_put_contents('files/organizations.yaml', $yaml);
         return 'CREATED';
     }
 
@@ -63,7 +63,7 @@ class OrganisationManager
             if ($file[$i]["name"] == $organizationName){
                 array_splice($file, $i, 1);
                 $yaml = Yaml::dump(["organizations" => $file], 2);
-                file_put_contents('files/tmp.yaml', $yaml);
+                file_put_contents('files/organizations.yaml', $yaml);
                 return true;
             }
         }

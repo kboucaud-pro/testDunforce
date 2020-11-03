@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Create Organization{% endblock %}</title>
+    <link href="{{ asset('css/organisations.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    <form action="/createOrganization" id="organizationForm" method="POST">
+        <label for="organizationName">Organization Name : </label><input type="text" name="organizationName"
+            id="organizationName" /><br><br>
+        <label for="organizationDescription">Organization Description : </label><br>
+        <textarea name="organizationDescription" id="organizationDescription" cols="50"
+            rows="10"></textarea><br>
+        <div id="organizationUserList">
+            
+        </div>
+        <div style="margin-top: 20px;">
+            <input type="text" id="addUserInput" /><button id="addUserButton" type="button">Add User</button><br>
+        </div>
+        <input type="submit" value="Save informations" />
+    </form><br>
+
+    <div style="float: right;"><a href="/"><button>Back</button></a></div>
+    <script src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
+    <script src="{{ asset('js/organization.js') }}"></script>
+</body>
+
+</html>

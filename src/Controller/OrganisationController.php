@@ -78,4 +78,23 @@ class OrganisationController extends AbstractController
         }
         return $this->render('notFound.twig');
     }
+
+    /**
+     * @Route("/createOrganization", name="createOrganization")
+     */
+
+    public function createOrganization(Request $request, OrganisationManager $organisationManager)
+    {
+        if ($request->isMethod('POST')) {
+            $result = $organisationManager->updateOrganizations($request->request->all());
+            if ($result == 'UPDATED')
+                $this->addFlash('success', 'Organization successfully updated');
+            else if ($result == 'CREATED')
+                $this->addFlash('success', 'Organization successfully created');
+            return $this->render('organisations.twig', [
+                'organisations' => $organisationManager->getOrganizations()
+            ]);
+        }
+        return $this->render('createOrganization.twig');
+    }
 }
