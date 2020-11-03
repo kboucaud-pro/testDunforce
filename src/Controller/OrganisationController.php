@@ -33,16 +33,49 @@ class OrganisationController extends AbstractController
 
     public function organizationInfo(string $slug, Request $request, OrganisationManager $organisationManager)
     {
-        $fileOrganisation = $organisationManager->getOrganizations($slug);
-        if ($fileOrganisation == null)
-            return $this->render('notFound.twig');
+        $result = 'ACCESSING';
 
-        if ($request->isMethod('POST')){
-            $organisationManager->updateOrganizations($request->request->all());
+        if ($request->isMethod('POST')) {
+            $result = $organisationManager->updateOrganizations($request->request->all());
         }
-        return $this->render('organization_info.twig', [
-            'organization_name' => $slug,
-            'organization' => $fileOrganisation
-        ]);
+
+        if ($result == 'CREATED') {
+            if ($result == 'CREATED')
+                $this->addFlash('success', 'Organization successfully created');
+            return $this->render('organisations.twig', [
+                'organisations' => $organisationManager->getOrganizations()
+            ]);
+        } else if ($result == 'UPDATED' || $result == 'ACCESSING') {
+            $fileOrganisation = $organisationManager->getOrganizations($slug);
+            if ($fileOrganisation == null)
+                return $this->render('notFound.twig');
+            if ($result == 'UPDATED')
+                $this->addFlash('success', 'Organization successfully updated');
+            return $this->render('organization_info.twig', [
+                'organization_name' => $slug,
+                'organization' => $fileOrganisation
+            ]);
+        }
+    }
+
+    /**
+     * @Route("/deleteOrganization/{slug}", name="deleteOrganization")
+     */
+
+    public function deleteOrganization($slug, OrganisationManager $organisationManager, Request $request)
+    {
+        dump($request->isMethod('POST'));
+        if ($request->isMethod('POST')) {
+            $result = $organisationManager->deleteOrganization($slug);
+            if ($result) {
+                $this->addFlash('success', "Organization deleted successfully");
+            } else {
+                $this->addFlash('error', 'Organization doesnt exist');
+            }
+            return $this->render('organisations.twig', [
+                'organisations' => $organisationManager->getOrganizations()
+            ]);
+        }
+        return $this->render('notFound.twig');
     }
 }

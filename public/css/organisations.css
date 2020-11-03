@@ -65,3 +65,19 @@ a:focus {
     outline: 0;
     border-bottom: 1px solid green;
 }
+
+.successMessage{
+    background-color: #80DD63;
+    border: solid 1px #66B04F;
+    border-radius: 5px;
+    display: inline-block;
+    padding: 5px;
+}
+
+.errorMessage{
+    background-color: #F25656;
+    border: solid 1px #A93C3C;
+    border-radius: 5px;
+    display: inline-block;
+    padding: 5px;
+}

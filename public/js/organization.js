@@ -26,6 +26,7 @@ $(document).ready(function () {
             users.push(userTab);
         })
         $("<input />").attr("type", "hidden").attr("name", "users").attr("value", JSON.stringify(users)).appendTo("#organizationForm");
+        $('#organizationForm').attr('action', '/organization/' + $('#organizationName')[0].value)
         return true;
     });
 
